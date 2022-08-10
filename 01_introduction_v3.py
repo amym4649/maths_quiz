@@ -4,6 +4,7 @@ def yes_no(question):
     while not valid:
         response = input(question).lower()
 
+        # If 'yes', skip instructions
         if response == "yes" or response == "y":
             response = "yes"
             return response
@@ -27,6 +28,7 @@ print()
 name = input("What is your name? ").capitalize()
 print()
 
+# Asks the user if they have played before
 played_before = yes_no("Hi {}! Have you played the game before? ".format(name))
 print()
 
