@@ -51,27 +51,19 @@ def which_type(type1, type2, type3, type4):
 
             if choice_input == type1:
                 final_choice = options[0]
-                valid_input = True
                 return final_choice
 
             elif choice_input == type2:
                 final_choice = options[1]
-                valid_input = True
                 return final_choice
 
             elif choice_input == type3:
                 final_choice = options[2]
-                valid_input = True
                 return final_choice
 
             elif choice_input == type4:
                 final_choice = options[3]
-                valid_input = True
                 return final_choice
-
-            else:
-                print(option_error)
-                print()
 
         # Value error message
         except ValueError:
@@ -79,15 +71,52 @@ def which_type(type1, type2, type3, type4):
             print()
 
 
-def addition(minimum_number, maximum_number):
+# Generates random number between mini_num and max_num
+def random_generator(mini_num, maxi_num):
+    num_1 = random.randint(mini_num, maxi_num)
+    num_2 = random.randint(mini_num, maxi_num)
+    return num_1, num_2
+
+
+# Addition question function using the numbers from random_generator
+def maths_question(num_1, num_2, operator):
+    quiz = "{}. {} {} {} = ".format(NUM_TRIES, num_1, operator, num_2)
+    return quiz
+
+
+# Addition answer to the question
+def addition_answer(num_1, num_2):
+    answer = num_1 + num_2
+    return answer
+
+
+# Subtraction answer to the question
+def subtraction_answer(num_1, num_2):
+    answer = num_1 - num_2
+    return answer
+
+
+# Multiplication answer to the question
+def multiplication_answer(num_1, num_2):
+    answer = num_1 * num_2
+    return answer
+
+
+# Division answer to the question
+def division_answer(num_2, mini_num, max_num):
+    answer = random.randint(mini_num, max_num)
+    num_1 = num_2 * answer
+    quiz = num_1 / num_2
+    return quiz
+
+
+# Checks the answer with the user input
+def answer_checker(quiz, answer):
     valid_input = False
-    number_1 = random.randint(minimum_number, maximum_number)
-    number_2 = random.randint(minimum_number, maximum_number)
-    answer = number_1 + number_2
 
     while not valid_input:
         try:
-            user_answer = int(input("{}. {} + {} = ".format(NUM_TRIES, number_1, number_2)))
+            user_answer = int(input(quiz))
 
             # If the user enters a correct answer
             if user_answer == answer:
@@ -112,11 +141,16 @@ MULTIPLICATION = 3
 DIVISION = 4
 NUM_TRIES = 1
 
-x = 1
-option_error = "This is in an invalid input. Please enter an integer between 1 to 4."
+
 options = ["addition", "subtraction", "multiplication", "division"]
-error_message = "This is an invalid input. Please enter an integer between 1 to 100.\n"
+operator_type = ["+", "-", "x", "÷"]
+
+option_error = "This is in an invalid input. Please enter an integer between 1 to 4."
+error_message = "This is an invalid input. Please enter an integer between 0 to 100.\n"
+error_message_subtraction = "This is an invalid input. Please enter an integer under 100.\n"
 num_questions = 10
+x = 1
+
 
 # Main routine
 # Introduction to the game
@@ -147,8 +181,42 @@ user_choice = which_type(ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION)
 print()
 print("You chose {}. Let's do this!\n".format(user_choice))
 
-# If user chooses addition (options[0]), give user 10 addition questions
+# If user chooses addition (options[0]), give user num_questions of addition questions
 if user_choice == options[0]:
+   while NUM_TRIES <= num_questions:
+    ran_num_1, ran_num_2 = random_generator(0, 50)
+    addition_question = maths_question(ran_num_1, ran_num_2, operator_type[0])
+    question_answer = addition_answer(ran_num_1, ran_num_2)
+    answer_checker(addition_question, question_answer)
+    NUM_TRIES += 1
+
+# If user chooses subtraction (options[1]), give user num_questions of subtraction questions
+if user_choice == options[1]:
     while NUM_TRIES <= num_questions:
-        addition(0, 50)
+        ran_num_1, ran_num_2 = random_generator(0, 100)
+        subtraction_question = maths_question(ran_num_1, ran_num_2, operator_type[1])
+        question_answer = subtraction_answer(ran_num_1, ran_num_2)
+        answer_checker(subtraction_question, question_answer)
         NUM_TRIES += 1
+
+
+# If user chooses multiplication (options[2]), give user num_questions of multiplication questions
+if user_choice == options[2]:
+    while NUM_TRIES <= num_questions:
+        ran_num_1, ran_num_2 = random_generator(0, 10)
+        multiplication_question = maths_question(ran_num_1, ran_num_2, operator_type[2])
+        question_answer = multiplication_answer(ran_num_1, ran_num_2)
+        answer_checker(multiplication_question, question_answer)
+        NUM_TRIES += 1
+
+
+# If user chooses division (options[3]), give user num_questions of division questions
+if user_choice == options[3]:
+    while NUM_TRIES <= num_questions:
+        ran_num_1, ran_num_2 = random_generator(0, 10)
+        division_question = maths_question(ran_num_1, ran_num_2, operator_type[3])
+        question_answer = division_answer(ran_num_2, 0, 10)
+        answer_checker(division_question, question_answer)
+        NUM_TRIES += 1
+
+
