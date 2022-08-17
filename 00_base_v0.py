@@ -102,12 +102,20 @@ def multiplication_answer(num_1, num_2):
     return answer
 
 
-# Division answer to the question
-def division_answer(num_2, mini_num, max_num):
-    answer = random.randint(mini_num, max_num)
-    num_1 = num_2 * answer
-    quiz = num_1 / num_2
+#  Question function using the numbers from random_generator
+# To make an integer answer, answer = num_2
+def div_quiz(num_1, num_2, operator):
+    answer = num_2
+    starting_num = num_1 * answer
+    quiz = "{}. {} {} {} = ".format(NUM_TRIES, starting_num, operator, num_1)
     return quiz
+
+
+# Division answer
+def division_answer(num_1, num_2):
+    answer = num_2
+    starting_num = num_1 * answer
+    return answer
 
 
 # Checks the answer with the user input
@@ -213,9 +221,9 @@ if user_choice == options[2]:
 # If user chooses division (options[3]), give user num_questions of division questions
 if user_choice == options[3]:
     while NUM_TRIES <= num_questions:
-        ran_num_1, ran_num_2 = random_generator(0, 10)
-        division_question = maths_question(ran_num_1, ran_num_2, operator_type[3])
-        question_answer = division_answer(ran_num_2, 0, 10)
+        ran_num_1, ran_num_2 = random_generator(1, 10)
+        division_question = div_quiz(ran_num_1, ran_num_2, operator_type[3])
+        question_answer = division_answer(ran_num_1, ran_num_2)
         answer_checker(division_question, question_answer)
         NUM_TRIES += 1
 
