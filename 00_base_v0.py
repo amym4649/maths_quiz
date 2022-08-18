@@ -26,7 +26,7 @@ def yes_no(question):
 
         # If an invalid answer, request either yes / no
         else:
-            print("Please enter either yes / no")
+            print("Please enter either yes / no\n")
 
 
 def instructions():
@@ -273,3 +273,18 @@ if user_choice == options[3]:
         # Ask if the user wants to play again (the same operator)
         play_again = input("Press <enter> to play again or xxx to exit ")
         print()
+
+# Ask the user if they enjoyed the game
+had_fun = yes_no("Did you enjoy this game? ")
+print()
+
+if had_fun == "yes":
+    print("That's great! Glad to hear!\n")
+
+elif had_fun == "no":
+    print("Oh no... \n"
+          "At least you were able to practice your maths!\n")
+
+# Let the user know that it is the end
+print("*** End of game ***\n"
+      "Thank you for playing!")
