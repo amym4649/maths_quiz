@@ -119,7 +119,7 @@ def division_answer(num_1, num_2):
 
 
 # Checks the answer with the user input
-def answer_checker(quiz, answer):
+def answer_checker(quiz, answer, num_correct):
     valid_input = False
 
     while not valid_input:
@@ -128,8 +128,10 @@ def answer_checker(quiz, answer):
 
             # If the user enters a correct answer
             if user_answer == answer:
+                result = "correct"
+                num_correct.append(result)
                 print("Correct!\n")
-                return
+                return num_correct
 
             # If the user enters and incorrect answer
             elif user_answer != answer:
@@ -142,6 +144,13 @@ def answer_checker(quiz, answer):
             print(error_message)
 
 
+# Calculate the total score
+def score(num_correct, out_of):
+    # Results
+    print("You got {}/{} for your quiz!\n".format(len(num_correct), out_of))
+    return
+
+
 # Constants and variables
 ADDITION = 1
 SUBTRACTION = 2
@@ -149,16 +158,15 @@ MULTIPLICATION = 3
 DIVISION = 4
 NUM_TRIES = 1
 
-
 options = ["addition", "subtraction", "multiplication", "division"]
 operator_type = ["+", "-", "x", "÷"]
+num_correct_lst = []
 
 option_error = "This is in an invalid input. Please enter an integer between 1 to 4."
 error_message = "This is an invalid input. Please enter an integer between 0 to 100.\n"
 error_message_subtraction = "This is an invalid input. Please enter an integer under 100.\n"
 num_questions = 10
 x = 1
-
 
 # Main routine
 # Introduction to the game
@@ -189,14 +197,27 @@ user_choice = which_type(ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION)
 print()
 print("You chose {}. Let's do this!\n".format(user_choice))
 
+# Start the game by <enter>
+play_again = input("Press <enter> to play ")
+print()
+
 # If user chooses addition (options[0]), give user num_questions of addition questions
 if user_choice == options[0]:
-   while NUM_TRIES <= num_questions:
-    ran_num_1, ran_num_2 = random_generator(0, 50)
-    addition_question = maths_question(ran_num_1, ran_num_2, operator_type[0])
-    question_answer = addition_answer(ran_num_1, ran_num_2)
-    answer_checker(addition_question, question_answer)
-    NUM_TRIES += 1
+    while NUM_TRIES <= num_questions:
+        ran_num_1, ran_num_2 = random_generator(0, 50)
+        addition_question = maths_question(ran_num_1, ran_num_2, operator_type[0])
+        question_answer = addition_answer(ran_num_1, ran_num_2)
+        answer_checker(addition_question, question_answer, num_correct_lst)
+        NUM_TRIES += 1
+
+        # Results
+        score(num_correct_lst, num_questions)
+        # Reset result
+        num_correct_lst = []
+
+        # Ask if the user wants to play again (the same operator)
+        play_again = input("Press <enter> to play again or xxx to exit ")
+        print()
 
 # If user chooses subtraction (options[1]), give user num_questions of subtraction questions
 if user_choice == options[1]:
@@ -204,9 +225,17 @@ if user_choice == options[1]:
         ran_num_1, ran_num_2 = random_generator(0, 100)
         subtraction_question = maths_question(ran_num_1, ran_num_2, operator_type[1])
         question_answer = subtraction_answer(ran_num_1, ran_num_2)
-        answer_checker(subtraction_question, question_answer)
+        answer_checker(subtraction_question, question_answer, num_correct_lst)
         NUM_TRIES += 1
 
+        # Results
+        score(num_correct_lst, num_questions)
+        # Reset result
+        num_correct_lst = []
+
+        # Ask if the user wants to play again (the same operator)
+        play_again = input("Press <enter> to play again or xxx to exit ")
+        print()
 
 # If user chooses multiplication (options[2]), give user num_questions of multiplication questions
 if user_choice == options[2]:
@@ -214,17 +243,33 @@ if user_choice == options[2]:
         ran_num_1, ran_num_2 = random_generator(0, 10)
         multiplication_question = maths_question(ran_num_1, ran_num_2, operator_type[2])
         question_answer = multiplication_answer(ran_num_1, ran_num_2)
-        answer_checker(multiplication_question, question_answer)
+        answer_checker(multiplication_question, question_answer, num_correct_lst)
         NUM_TRIES += 1
 
+        # Results
+        score(num_correct_lst, num_questions)
+        # Reset result
+        num_correct_lst = []
+
+        # Ask if the user wants to play again (the same operator)
+        play_again = input("Press <enter> to play again or xxx to exit ")
+        print()
 
 # If user chooses division (options[3]), give user num_questions of division questions
 if user_choice == options[3]:
-    while NUM_TRIES <= num_questions:
-        ran_num_1, ran_num_2 = random_generator(1, 10)
-        division_question = div_quiz(ran_num_1, ran_num_2, operator_type[3])
-        question_answer = division_answer(ran_num_1, ran_num_2)
-        answer_checker(division_question, question_answer)
-        NUM_TRIES += 1
+    while play_again == "":
+        for NUM_TRIES in range(1, num_questions + 1):
+            ran_num_1, ran_num_2 = random_generator(1, 10)
+            division_question = div_quiz(ran_num_1, ran_num_2, operator_type[3])
+            question_answer = division_answer(ran_num_1, ran_num_2)
+            answer_checker(division_question, question_answer, num_correct_lst)
+            NUM_TRIES += 1
 
+        # Results
+        score(num_correct_lst, num_questions)
+        # Reset result
+        num_correct_lst = []
 
+        # Ask if the user wants to play again (the same operator)
+        play_again = input("Press <enter> to play again or xxx to exit ")
+        print()
