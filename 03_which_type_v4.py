@@ -11,27 +11,19 @@ def which_type(type1, type2, type3, type4):
 
             if choice_input == type1:
                 final_choice = options[0]
-                valid_input = True
                 return final_choice
 
             elif choice_input == type2:
                 final_choice = options[1]
-                valid_input = True
                 return final_choice
 
             elif choice_input == type3:
                 final_choice = options[2]
-                valid_input = True
                 return final_choice
 
             elif choice_input == type4:
                 final_choice = options[3]
-                valid_input = True
                 return final_choice
-
-            else:
-                print(error)
-                print()
 
         # Value error message
         except ValueError:
