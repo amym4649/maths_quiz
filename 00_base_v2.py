@@ -169,10 +169,9 @@ print()
 operation_choice = user_choice("Type the number for your operation choice: ")
 print()
 
-print("*** START ***\n")
-
 # The questions get repeated for num_question (10 for the game)
 while play_again == "":
+    print("*** START ***\n")
     for NUM_TRIES in range(1, num_questions + 1):
         equation, equation_answer = quiz(operation_choice)
         answer_checker(equation, equation_answer, num_correct_lst)
@@ -184,7 +183,7 @@ while play_again == "":
     num_correct_lst = []
 
     # Ask if the user wants to play again (the same operator)
-    play_again = input("Press <enter> to play again or xxx to exit ")
+    play_again = input("Press <enter> to play again or type 'xxx' to exit ")
     print()
 
 # Ask the user if they enjoyed the game
